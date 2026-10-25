@@ -1,69 +1,90 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { TOTAL_PAGES, images, pad } from "../lib/site";
 
-export default function Home() {
+const socials = [
+  { label: "IG", href: "https://instagram.com" },
+  { label: "TT", href: "https://tiktok.com" },
+  { label: "YT", href: "https://youtube.com" },
+  { label: "FB", href: "https://facebook.com" },
+  { label: "WA", href: "https://wa.me/6281234567890" },
+];
+
+const stores = [
+  { icon: "G", small: "PESAN DI", name: "GoFood", color: "#00aa13" },
+  { icon: "G", small: "PESAN DI", name: "GrabFood", color: "#00b14f" },
+  { icon: "S", small: "PESAN DI", name: "ShopeeFood", color: "#ee4d2d" },
+];
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <section className="home-section" style={{ backgroundImage: `url(${images.heroBg})` }}>
+      <div className="home-overlay"></div>
+
+      <div className="home-page-count">
+        PAGE - <strong>01</strong> / {pad(TOTAL_PAGES)}
+      </div>
+
+      <div className="home-content">
+        <h1 className="home-title">PECEL LELE PAK ASEP</h1>
+        <p className="home-subtitle">
+          — LEGENDA SAMBAL DADAKAN &amp; LELE CRISPY SEJAK 2010 —
+        </p>
+        <p className="home-date">Buka Setiap Hari · 17.00 - 03.00 WIB</p>
+      </div>
+
+      <div className="home-bottom-left">
+        <div className="progress-bar">
+          <div className="progress-fill"></div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="progress-labels">
+          <span>EST</span>
+          <span>2010</span>
+          <span>2015</span>
+          <span>2020</span>
+          <span>2026</span>
         </div>
-      </main>
-    </div>
+      </div>
+
+      <Link href="/news" className="scroll-down-btn">
+        ▼
+      </Link>
+
+      <div className="home-bottom-right">
+        <div className="download-group">
+          <div className="social-links">
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-btn"
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="store-buttons">
+            {stores.map((store) => (
+              <Link key={store.name} href="/data" className="store-btn">
+                <span className="store-icon" style={{ backgroundColor: store.color }}>
+                  {store.icon}
+                </span>
+                <div>
+                  <small>{store.small}</small>
+                  <strong>{store.name}</strong>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="qr-box">
+          <small>SCAN PESAN WA</small>
+          <img src={images.qr} alt="QR Code Pecel Lele Pak Asep" />
+        </div>
+      </div>
+    </section>
   );
 }
